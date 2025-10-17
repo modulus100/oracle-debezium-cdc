@@ -1,0 +1,45 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: oracle-cdc-proto
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: cdc-demo
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+cdc:
+  connect:
+    url: http://localhost:8083
+  # Debezium connector properties
+  oracle:
+    name: oracle-cdc-connector
+    database:
+      # For local app -> container port-mapped service, use localhost
+      hostname: localhost
+      port: 1521
+      cdb-name: XE
+      pdb-name: XEPDB1
+      username: "C##CDC"
+      password: cdcpass
+    # Debezium Oracle connector config
+    server-name: dbserver1
+    # Comma-separated SCHEMA.TABLE list to capture
+    table-include-list: "C##CDC.CUSTOMERS"
+    # LogMiner settings for XE/19c
+    snapshot-mode: initial
+    log-mining-strategy: online_catalog
+    # Reduce noise
+    tombstones-on-delete: false
+    include-schema-changes: false
+
+  kafka:
+    # Explicit topic list to consume from, comma-separated
+    topics: "dbserver1.C##CDC.CUSTOMERS"
+
+  embedded:
+    # Using in-memory offsets and schema history in DebeziumEmbeddedConfig for prototype

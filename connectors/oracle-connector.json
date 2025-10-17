@@ -1,0 +1,33 @@
+{
+  "name": "oracle-cdc-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.oracle.OracleConnector",
+    "tasks.max": "1",
+
+    "topic.prefix": "cdc",
+
+    "database.hostname": "oracle",
+    "database.port": "1521",
+    "database.user": "C##CDC",
+    "database.password": "cdcpass",
+    "database.dbname": "XE",
+    "database.pdb.name": "XEPDB1",
+
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
+    "schema.history.internal.kafka.topic": "cdc.schema-history",
+
+    "table.include.list": "C##CDC.CUSTOMERS",
+    "snapshot.mode": "initial",
+    "log.mining.strategy": "online_catalog",
+    "decimal.handling.mode": "precise",
+    "time.precision.mode": "adaptive_time_microseconds",
+
+    "include.schema.changes": "false",
+    "tombstones.on.delete": "false",
+
+    "transforms": "routeCustomers",
+    "transforms.routeCustomers.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.routeCustomers.regex": "cdc\\.C##CDC\\.CUSTOMERS",
+    "transforms.routeCustomers.replacement": "cdc.customers"
+  }
+}

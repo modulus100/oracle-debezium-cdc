@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourcePerFileMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/88d9ecb7-c2b2-4565-92b5-997a5fb81586/console.sql" value="88d9ecb7-c2b2-4565-92b5-997a5fb81586" />
+    <file url="file://$PROJECT_DIR$/scripts/oracle/01-cdc-setup.sql" value="88d9ecb7-c2b2-4565-92b5-997a5fb81586" />
+  </component>
+</project>

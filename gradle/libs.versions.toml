@@ -1,0 +1,34 @@
+## Gradle Version Catalog
+
+[versions]
+spring-boot = "3.5.6"
+spring-dep-mgmt = "1.1.6"
+spring-integration-debezium = "6.3.4"
+debezium = "3.3.1.Final"
+ojdbc10 = "21.1.0.0"
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dep-mgmt" }
+
+[libraries]
+# Spring Boot starters
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-integration = { module = "org.springframework.boot:spring-boot-starter-integration" }
+
+# Spring Integration Debezium
+spring-integration-debezium = { module = "org.springframework.integration:spring-integration-debezium", version.ref = "spring-integration-debezium" }
+
+# Spring Integration Core (includes DSL in SI 6)
+spring-integration-core = { module = "org.springframework.integration:spring-integration-core" }
+
+# Oracle JDBC
+ojdbc10 = { module = "com.oracle.database.jdbc:ojdbc11", version.ref = "ojdbc10" }
+
+# Debezium Embedded + Oracle connector
+debezium-embedded = { module = "io.debezium:debezium-embedded", version.ref = "debezium" }
+debezium-connector-oracle = { module = "io.debezium:debezium-connector-oracle", version.ref = "debezium" }
+
+# Test
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
