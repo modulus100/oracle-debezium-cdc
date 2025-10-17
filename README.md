@@ -28,15 +28,15 @@ This project sets up a complete Debezium Oracle CDC (Change Data Capture) pipeli
 # Create directory for the connector
 mkdir -p connect-plugins/debezium-oracle-connector
 
-# Download Debezium Oracle Connector (2.6.1.Final)
-curl -L -o debezium-connector-oracle-2.6.1.Final-plugin.tar.gz \
-  https://repo1.maven.org/maven2/io/debezium/debezium-connector-oracle/2.6.1.Final/debezium-connector-oracle-2.6.1.Final-plugin.tar.gz
+# Download Debezium Oracle Connector (3.0.0.Final)
+curl -L -o debezium-connector-oracle-3.0.0.Final-plugin.tar.gz \
+  https://repo1.maven.org/maven2/io/debezium/debezium-connector-oracle/3.0.0.Final/debezium-connector-oracle-3.0.0.Final-plugin.tar.gz
 
 # Extract the connector
-tar -xzf debezium-connector-oracle-2.6.1.Final-plugin.tar.gz -C connect-plugins/debezium-oracle-connector --strip-components=1
+tar -xzf debezium-connector-oracle-3.0.0.Final-plugin.tar.gz -C connect-plugins/debezium-oracle-connector --strip-components=1
 
 # Clean up
-rm debezium-connector-oracle-2.6.1.Final-plugin.tar.gz
+rm debezium-connector-oracle-3.0.0.Final-plugin.tar.gz
 ```
 
 ### 3. Start the Stack
