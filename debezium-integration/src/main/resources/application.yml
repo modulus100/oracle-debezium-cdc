@@ -31,6 +31,7 @@ cdc:
     # Comma-separated SCHEMA.TABLE list to capture
     table-include-list: "C##CDC.CUSTOMERS"
     # LogMiner settings for XE/19c
+    # Use schema_only for first run to record DDL once; switch to schema_only_recovery or never for subsequent runs
     snapshot-mode: initial
     log-mining-strategy: online_catalog
     # Reduce noise
@@ -40,6 +41,20 @@ cdc:
   kafka:
     # Explicit topic list to consume from, comma-separated
     topics: "dbserver1.C##CDC.CUSTOMERS"
+    # Debezium embedded engine storage (Kafka-backed)
+    bootstrap-servers: localhost:29092
+    offset-storage:
+      topic: debezium-offsets
+      partitions: 1
+      replication-factor: 1
+    offset:
+      flush:
+        interval:
+          ms: 10000
+    schema-history:
+      topic: debezium-schema-history
+      consumer:
+        group-id: dbserver1-schemahistory
 
   embedded:
-    # Using in-memory offsets and schema history in DebeziumEmbeddedConfig for prototype
+    # Debezium embedded engine runs inside this Spring Boot app

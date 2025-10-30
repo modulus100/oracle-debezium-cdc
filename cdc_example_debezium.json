@@ -1,0 +1,48 @@
+{
+  "before": {
+    "ID": "1",
+    "FIRST_NAME": "Jane",
+    "LAST_NAME": "Doe",
+    "EMAIL": "john.smith+new2@example.com",
+    "UPDATED_AT": 1761907318588773
+  },
+  "after": {
+    "ID": "1",
+    "FIRST_NAME": "Jane",
+    "LAST_NAME": "Doe",
+    "EMAIL": "john.smith+new2@example.com",
+    "UPDATED_AT": 1761907318588773
+  },
+  "source": {
+    "version": "3.3.1.Final",
+    "connector": "oracle",
+    "name": "dbserver1",
+    "ts_ms": 1761909778000,
+    "snapshot": "false",
+    "db": "XEPDB1",
+    "sequence": null,
+    "ts_us": 1761909778000000,
+    "ts_ns": 1761909778000000000,
+    "schema": "C##CDC",
+    "table": "CUSTOMERS",
+    "txId": "08002100a3020000",
+    "scn": "3000665",
+    "commit_scn": "3000666",
+    "lcr_position": null,
+    "rs_id": "0x000018.000033eb.0010",
+    "ssn": 0,
+    "redo_thread": 1,
+    "user_name": "C##CDC",
+    "redo_sql": null,
+    "row_id": "AAASi8AAMAAAACGAAA",
+    "commit_ts_ms": 1761909778000,
+    "start_scn": "3000665",
+    "start_ts_ms": 1761909778000,
+    "txSeq": 1
+  },
+  "transaction": null,
+  "op": "u",
+  "ts_ms": 1761909779094,
+  "ts_us": 1761909779094516,
+  "ts_ns": 1761909779094516000
+}

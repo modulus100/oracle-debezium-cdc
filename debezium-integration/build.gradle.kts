@@ -23,6 +23,8 @@ dependencies {
     implementation(libs.spring.boot.starter)
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.integration)
+    implementation(libs.spring.boot.starter.kafka)
+    implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation(libs.spring.integration.core)
     implementation(libs.spring.integration.debezium)
 
@@ -32,6 +34,9 @@ dependencies {
     // Debezium embedded engine and Oracle connector
     implementation(libs.debezium.embedded)
     implementation(libs.debezium.connector.oracle)
+
+    // Debezium Kafka storage for offsets and schema history
+    implementation(libs.debezium.storage.kafka)
 
     testImplementation(libs.spring.boot.starter.test)
 }

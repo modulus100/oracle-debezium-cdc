@@ -16,6 +16,7 @@ spring-dependency-management = { id = "io.spring.dependency-management", version
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-boot-starter-integration = { module = "org.springframework.boot:spring-boot-starter-integration" }
+spring-boot-starter-kafka = { module = "org.springframework.kafka:spring-kafka" }
 
 # Spring Integration Debezium
 spring-integration-debezium = { module = "org.springframework.integration:spring-integration-debezium", version.ref = "spring-integration-debezium" }
@@ -29,6 +30,9 @@ ojdbc10 = { module = "com.oracle.database.jdbc:ojdbc11", version.ref = "ojdbc10"
 # Debezium Embedded + Oracle connector
 debezium-embedded = { module = "io.debezium:debezium-embedded", version.ref = "debezium" }
 debezium-connector-oracle = { module = "io.debezium:debezium-connector-oracle", version.ref = "debezium" }
+
+# Debezium Kafka storage (offsets + schema history)
+debezium-storage-kafka = { module = "io.debezium:debezium-storage-kafka", version.ref = "debezium" }
 
 # Test
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
