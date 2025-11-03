@@ -35,7 +35,53 @@ services:
       KAFKA_BROKERCONNECT: "kafka:9092"
       JVM_OPTS: "-Xms128M -Xmx256M"
 
-#  connect:
+  connect:
+    build:
+      context: ./debezium-connect/
+      args:
+        DEBEZIUM_VERSION: 3.3.1.Final
+        OJDBC_ARTIFACT: ojdbc11   # если у тебя реально ojdbc11.jar
+        OJDBC_VERSION: 21.1.0.0
+    container_name: connect
+    depends_on:
+      kafka:
+        condition: service_healthy
+      oracle:
+        condition: service_healthy
+    ports:
+      - "8083:8083"
+    environment:
+      # Kafka cluster
+      BOOTSTRAP_SERVERS: kafka:9092
+      GROUP_ID: "debezium-connect"
+
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+
+      CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONFIG_STORAGE_PARTITIONS: 1
+      OFFSET_STORAGE_PARTITIONS: 1
+      STATUS_STORAGE_PARTITIONS: 1
+
+      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
+
+      CONNECT_PLUGIN_PATH: /kafka/connect,/kafka/libs
+
+    healthcheck:
+      test: [ "CMD", "bash", "-c", "curl -sf http://localhost:8083/connectors || exit 1" ]
+      interval: 20s
+      timeout: 5s
+      retries: 15
+
+
+
+  #  connect:
 #    image: confluentinc/cp-kafka-connect:7.9.0
 #    container_name: connect
 #    depends_on:
@@ -68,16 +114,16 @@ services:
 #      timeout: 5s
 #      retries: 20
 
-#  connect-ui:
-#    image: landoop/kafka-connect-ui:0.9.7
-#    ports:
-#      - "8084:8084"
-#    environment:
-#      PORT: "8084"
-#      PROXY: "true"
-#      CONNECT_URL: "http://connect:8083"
-#    depends_on:
-#      - "connect"
+  connect-ui:
+    image: landoop/kafka-connect-ui:0.9.7
+    ports:
+      - "8084:8084"
+    environment:
+      PORT: "8084"
+      PROXY: "true"
+      CONNECT_URL: "http://connect:8083"
+    depends_on:
+      - "connect"
 
   oracle:
     image: gvenzl/oracle-xe:21-slim
@@ -95,6 +141,21 @@ services:
       interval: 20s
       timeout: 10s
       retries: 30
+
+#  kafka-ui:
+#    image: kafbat/kafka-ui:latest
+#    ports:
+#      - "9001:8080"
+#    environment:
+#      KAFKA_CLUSTERS_0_NAME: local
+#      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+#      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: connect
+#      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://connect:8083
+#    depends_on:
+#      kafka:
+#        condition: service_healthy
+#      connect:
+#        condition: service_healthy
 
 networks:
   default:
